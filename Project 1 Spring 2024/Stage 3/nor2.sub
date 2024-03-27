@@ -1,0 +1,12 @@
+.subckt nor2 in1 in2 out Vdd 
+.param NorP=4
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM Ldiff=44n
+
+M1 out in1 0 0 nmos W={Wmin} L={Lmin}
+M2 out in2 0 0 nmos W={Wmin} L={Lmin}
+M3 out in1 x Vdd pmos W={Wmin*NorP} L={Lmin}  
+M4 x in2 Vdd Vdd pmos W={Wmin*NorP} L={Lmin} 
+.ends 
+

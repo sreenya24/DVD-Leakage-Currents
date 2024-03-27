@@ -1,0 +1,39 @@
+
+*CONDUCTION NMOS W1
+
+.INCLUDE ../../model/32nm_HP.pm
+.OPTIONS GMIN=1e-020 ABSTOL=1e-18
+
+*Definizione dei parametri
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM Ldiff=44n
+
+.TEMP 85
+
+.PARAM N=1
+
+*Descrizione della cella
+Mn drain gate source body nmos W={Wmin*N} L={Lmin} AS={Wmin*N*Ldiff} AD={Wmin*N*Ldiff} PS={2*(Ldiff+Wmin*N)} PD={2*(Ldiff+Wmin*N)}
+Vd 	drain	0		0
+Vg 	gate	alim		0
+Vs 	source	0		0
+Vb 	body	0		0
+Vdd 	alim	0		0
+
+*Definizione del tipo di analisi
+.CONTROL
+let voltage=-0.05
+let Vddbasic=1.0
+
+while voltage le Vddbasic
+  let voltage = voltage + 0.05
+  alter Vdd = voltage
+  dc TEMP 85 86 10
+  print abs(V(alim)) V(drain) V(gate) V(source) V(body) I(Vd) I(Vg) I(Vs) I(Vb)
+
+end
+
+.ENDC
+.END
+

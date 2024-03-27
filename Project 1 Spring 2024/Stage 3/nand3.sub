@@ -1,0 +1,15 @@
+.subckt nand3 in1 in2 in3 out Vdd 
+.param NandP=2
+.param NandN=3
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM Ldiff=44n
+
+M1 out in1 x2 0 nmos W={Wmin*NandN} L={Lmin}
+M2 x2 in2 x3 0 nmos W={Wmin*NandN} L={Lmin}
+M3 x3 in3 0 0 nmos W={Wmin*NandN} L={Lmin}
+M4 out in1 n2 0 pmos W={Wmin*NandP} L={Lmin}  
+M5 x2 in2 x3 0 pmos W={Wmin*NandP} L={Lmin}
+M6 x3 in3 0 0 pmos W={Wmin*NandP} L={Lmin}
+.ends
+

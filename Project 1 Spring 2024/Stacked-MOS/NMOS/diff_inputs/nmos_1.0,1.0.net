@@ -1,0 +1,35 @@
+
+
+*CONDUCTION NMOS W1
+
+.INCLUDE ../../model/45nm_HP.pm
+.OPTIONS GMIN=1e-020 ABSTOL=1e-18
+
+*Definizione dei parametri
+.PARAM Lmin=45n
+.PARAM Wmin=45n
+.PARAM Ldiff=90n
+
+.TEMP 85
+
+.PARAM N=1
+
+*Descrizione della prima cella NMOS
+Mn1 dd in1 dum 0 nmos W={Wmin*N} L={Lmin} AS={Wmin*N*Ldiff} AD={Wmin*N*Ldiff} PS={2*(Ldiff+Wmin*N)} PD={2*(Ldiff+Wmin*N)}
+
+*Descrizione della seconda cella NMOS in series
+Mn2 out in2 0 0 nmos W={Wmin*N} L={Lmin} AS={Wmin*N*Ldiff} AD={Wmin*N*Ldiff} PS={2*(Ldiff+Wmin*N)} PD={2*(Ldiff+Wmin*N)}
+
+
+Vdd dd	0 0
+Va 	in1	0 1.0
+Vb  in2 0 1.0
+Vlk dum out 0
+
+.CONTROL
+dc TEMP 85 86 10
+print V(out)
+
+.ENDC
+.END
+

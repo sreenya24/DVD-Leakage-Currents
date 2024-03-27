@@ -1,0 +1,28 @@
+*Leakage current/power in NAND2 cell
+*.INCLUDE ../model/45nm_MGK.pm
+*.INCLUDE ../model/32nm_MGK.pm
+.INCLUDE ./model/32nm_MGK.pm
+
+
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM XX=1
+.PARAM tr=50p
+
+Mp1	nodeZ	nodea	node1	node1	pmos	W={2*XX*Wmin}	L={Lmin}
+Mp2	nodeZ	nodeb	node1	node1	pmos	W={2*XX*Wmin}	L={Lmin}
+
+Mn1	node4	nodeb	0	0	nmos	W={2*XX*Wmin}	L={Lmin}
+Mn2	nodeZ	nodea	node4	0	nmos	W={2*XX*Wmin}	L={Lmin}
+
+Vdd 	node1 	0 	1
+
+Vina nodea 0 1
+Vinb nodeb 0 1
+
+*Definition of type of analysis
+.CONTROL
+dc TEMP 30 31 60
+print V(nodeZ)
+.ENDC
+.END

@@ -1,0 +1,9 @@
+.subckt not1 in out Vdd
+.param InvP=2
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM Ldiff=44n
+
+M1 out in Vdd Vdd pmos W={Wmin*InvP} L={Lmin} 
+M2 out in 0 0 nmos W={Wmin} L={Lmin} 
+.ends 

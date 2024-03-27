@@ -1,0 +1,7 @@
+Questionable use of curly braces in "let voltage = {voltage} + 0.05"
+    Error: undefined symbol in: "[voltage]"
+Questionable use of curly braces in "alter vdd = {voltage}"
+    Error: undefined symbol in: "[voltage]"
+Circuit: *
+
+Fatal Error: Multiple instances of "Let"

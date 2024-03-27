@@ -1,0 +1,8 @@
+.subckt nand3_2 in1 in2 in3 out Vdd
+.include ./nand2.sub 
+
+X1 in1 in2 o1 Vdd nand2
+X2 o1 o1 o2 Vdd nand2
+X3 o2 in3 out Vdd nand2
+
+.ends

@@ -1,0 +1,33 @@
+
+
+*CONDUCTION NMOS W1
+
+.INCLUDE ../../model/32nm_HP.pm
+.OPTIONS GMIN=1e-020 ABSTOL=1e-18
+
+*Definizione dei parametri
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM Ldiff=44n
+
+.TEMP 85
+
+.PARAM N=2
+
+*Descrizione della prima cella NMOS
+Mn1 out in1 x 0 nmos W={Wmin*N} L={Lmin} AS={Wmin*N*Ldiff} AD={Wmin*N*Ldiff} PS={2*(Ldiff+Wmin*N)} PD={2*(Ldiff+Wmin*N)}
+
+*Descrizione della seconda cella NMOS in series
+Mn2 x in2 0 0 nmos W={Wmin*N} L={Lmin} AS={Wmin*N*Ldiff} AD={Wmin*N*Ldiff} PS={2*(Ldiff+Wmin*N)} PD={2*(Ldiff+Wmin*N)}
+
+Vdd out 0 1
+Va 	in1	0 1
+Vb  in2 0 0
+
+.CONTROL
+dc TEMP 85 86 10
+print V(x)
+
+.ENDC
+.END
+

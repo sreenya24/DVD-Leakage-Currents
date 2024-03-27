@@ -1,0 +1,3 @@
+Circuit: *CONDUCTION NMOS W1
+
+Fatal Error: Missing model name in CPL statement: "print v(drain_inter) i(vo) v(source_inter)"

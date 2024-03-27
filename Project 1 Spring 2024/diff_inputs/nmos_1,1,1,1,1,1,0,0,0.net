@@ -1,0 +1,158 @@
+
+*CONDUCTION NMOS W1
+
+.INCLUDE ./model/32nm_HP.pm
+.OPTIONS GMIN=1e-020 ABSTOL=1e-18
+
+*Definizione dei parametri
+.PARAM Lmin=22n
+.PARAM Wmin=22n
+.PARAM Ldiff=44n
+
+.TEMP 85
+
+.PARAM NandP=4
+.PARAM NandN=2
+.PARAM NorP=4
+.PARAM InvP=2
+
+*Section A
+*p3n + p2n 
+A_Nor1_Mna A_Nor1_out P3n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+A_Nor1_Mnb A_Nor1_out P2n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+A_Nor1_Mpa A_Nor1_Mpa_x P3n A_Nor1_out vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+A_Nor1_Mpb vdd P2n A_Nor1_Mpa_x vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+
+*p1n + p0n 
+A_Nor2_Mna A_Nor2_out P1n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+A_Nor2_Mnb A_Nor2_out P0n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+A_Nor2_Mpa A_Nor2_Mpa_x P1n A_Nor2_out vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+A_Nor2_Mpb vdd P0n A_Nor2_Mpa_x vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+
+*p3n + p2n + p1n + p0n = P
+A_Nor3_Mna P A_Nor1_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+A_Nor3_Mnb P A_Nor2_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+A_Nor3_Mpa A_Nor3_x A_Nor1_out P vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+A_Nor3_Mpb vdd A_Nor2_out A_Nor3_x vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+
+*Pn
+A_Not1_Mp vdd P Pn vdd pmos W={Wmin*InvP} L={Lmin} AS={Wmin*InvP*Ldiff} AD={Wmin*InvP*Ldiff} PS={2*(Ldiff+Wmin*InvP)} PD={2*(Ldiff+Wmin*InvP)}
+A_Not1_Mn Pn P 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+
+*Section B
+*g2n + g3n 
+B_Nand1_Mna B_Nand1_out G2n B_Nand1_x 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand1_Mnb B_Nand1_x G3n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand1_Mpa vdd G2n B_Nand1_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand1_Mpb vdd G3n B_Nand1_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*g0n + g1n
+B_Nand2_Mna B_Nand2_out G0n B_Nand2_x 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand2_Mnb B_Nand2_x G1n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand2_Mpa vdd G0n B_Nand2_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand2_Mpb vdd G1n B_Nand2_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*g2n + g1n + g0n + g3n
+B_Nand3_Mna B_Nand3_out B_Nand1_out B_Nand3_x 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand3_Mnb B_Nand3_x B_Nand2_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand3_Mpa vdd B_Nand1_out B_Nand3_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand3_Mpb vdd B_Nand2_out B_Nand3_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*(g2n + g1n + g0n + g3n)n
+B_Not1_Mp vdd B_Nand3_out B_Not1_out vdd pmos W={Wmin*InvP} L={Lmin} AS={Wmin*InvP*Ldiff} AD={Wmin*InvP*Ldiff} PS={2*(Ldiff+Wmin*InvP)} PD={2*(Ldiff+Wmin*InvP)}
+B_Not1_Mn B_Not1_out B_Nand3_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+
+*g2n + p1n 
+B_Nand4_Mna B_Nand4_out G1n B_Nand4_x 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand4_Mnb B_Nand4_x P1n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand4_Mpa vdd G1n B_Nand4_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand4_Mpb vdd P1n B_Nand4_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*g2n + g3n
+B_Nand5_Mna B_Nand5_out G2n B_Nand5_x 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand5_Mnb B_Nand5_x G3n 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand5_Mpa vdd G2n B_Nand5_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand5_Mpb vdd G3n B_Nand5_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*g2n + g1n + g3n + p1n
+B_Nand6_Mna B_Nand6_out B_Nand4_out B_Nand6_x 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand6_Mnb B_Nand6_x B_Nand5_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nand6_Mpa vdd B_Nand4_out B_Nand6_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand6_Mpb vdd B_Nand5_out B_Nand6_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*(g2n + g1n + g3n + p1n)n
+B_Not2_Mp vdd B_Nand6_out B_Not2_out vdd pmos W={Wmin*InvP} L={Lmin} AS={Wmin*InvP*Ldiff} AD={Wmin*InvP*Ldiff} PS={2*(Ldiff+Wmin*InvP)} PD={2*(Ldiff+Wmin*InvP)}
+B_Not2_Mn B_Not2_out B_Nand6_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+
+*g3n + g2n 
+B_Nand7_Mna B_Nand7_out G3n B_Nand7_x 0 nmos W={Wmin*NandN} L={Lmin} AS={Wmin*NandN} AD={Wmin*NandN*Ldiff} PS={2*(Ldiff+Wmin*NandN)} PD={2*(Ldiff+Wmin*NandN)}
+B_Nand7_Mnb B_Nand7_x G2n 0 0 nmos W={Wmin*NandN} L={Lmin} AS={Wmin*NandN} AD={Wmin*NandN*Ldiff} PS={2*(Ldiff+Wmin*NandN)} PD={2*(Ldiff+Wmin*NandN)}
+B_Nand7_Mpa vdd G3n B_Nand7_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand7_Mpb vdd G2n B_Nand7_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*g2n + g3n + p2n = going to not1
+B_Nand8_Mna B_Nand8_out B_Nand7_out B_Nand8_x 0 nmos W={Wmin*NandN} L={Lmin} AS={Wmin*NandN} AD={Wmin*NandN*Ldiff} PS={2*(Ldiff+Wmin*NandN)} PD={2*(Ldiff+Wmin*NandN)}
+B_Nand8_Mnb B_Nand8_x P2n 0 0 nmos W={Wmin*NandN} L={Lmin} AS={Wmin*NandN} AD={Wmin*NandN*Ldiff} PS={2*(Ldiff+Wmin*NandN)} PD={2*(Ldiff+Wmin*NandN)}
+B_Nand8_Mpa vdd B_Nand7_out B_Nand8_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand8_Mpb vdd P2n B_Nand8_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*(g3n + p2n + g2n)n
+B_Not3_Mp vdd B_Nand8_out B_Not3_out vdd pmos W={Wmin*InvP} L={Lmin} AS={Wmin*InvP*Ldiff} AD={Wmin*InvP*Ldiff} PS={2*(Ldiff+Wmin*InvP)} PD={2*(Ldiff+Wmin*InvP)}
+B_Not3_Mn B_Not3_out B_Nand8_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+
+*p3n+g3n
+B_Nand9_Mna B_Nand9_out P3n B_Nand9_x 0 nmos W={Wmin*NandN} L={Lmin} AS={Wmin*NandN} AD={Wmin*NandN*Ldiff} PS={2*(Ldiff+Wmin*NandN)} PD={2*(Ldiff+Wmin*NandN)}
+B_Nand9_Mnb B_Nand9_x G3n 0 0 nmos W={Wmin*NandN} L={Lmin} AS={Wmin*NandN} AD={Wmin*NandN*Ldiff} PS={2*(Ldiff+Wmin*NandN)} PD={2*(Ldiff+Wmin*NandN)}
+B_Nand9_Mpa vdd P3n B_Nand9_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+B_Nand9_Mpb vdd G3n B_Nand8_out vdd pmos W={Wmin*NandP} L={Lmin} AS={Wmin*NandP*Ldiff} AD={Wmin*NandP*Ldiff} PS={2*(Ldiff+Wmin*NandP)} PD={2*(Ldiff+Wmin*NandP)}
+
+*(p3n + g3n)n
+B_Not4_Mp vdd B_Nand9_out B_Not4_out vdd pmos W={Wmin*InvP} L={Lmin} AS={Wmin*InvP*Ldiff} AD={Wmin*InvP*Ldiff} PS={2*(Ldiff+Wmin*InvP)} PD={2*(Ldiff+Wmin*InvP)}
+B_Not4_Mn B_Not4_out B_Nand9_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+
+*(g2n + g1n + g0n + g3n)n NOR (g2n + g1n + g3n + p1n)n
+B_Nor1_Mna B_Nor1_out B_Not1_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nor1_Mnb B_Nor1_out B_Not2_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nor1_Mpa B_Nor1_x B_Not1_out B_Nor1_out vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+B_Nor1_Mpb vdd B_Not2_out B_Nor1_x vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+
+*(g3n + p2n + g2n)n NOR (p3n + g3n)n
+B_Nor2_Mna B_Nor2_out B_Not3_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nor2_Mnb B_Nor2_out B_Not4_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nor2_Mpa B_Nor2_x B_Not3_out B_Nor2_out vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+B_Nor2_Mpb vdd B_Not4_out B_Nor2_x vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+
+*(g2n + g1n + g0n + g3n)n NOR (g2n + g1n + g3n + p1n)n *NOR* (g3n + p2n + g2n)n NOR (p3n + g3n)n = G
+B_Nor3_Mna G B_Nor1_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nor3_Mnb G B_Nor2_out 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+B_Nor3_Mpa B_Nor3_x B_Nor1_out G vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+B_Nor3_Mpb vdd B_Nor2_out B_Nor3_x vdd pmos W={Wmin*NorP} L={Lmin} AS={Wmin*NorP*Ldiff} AD={Wmin*NorP*Ldiff} PS={2*(Ldiff+Wmin*NorP)} PD={2*(Ldiff+Wmin*NorP)}
+
+*Gn
+B_Not5_Mp vdd G Gn vdd pmos W={Wmin*InvP} L={Lmin} AS={Wmin*InvP*Ldiff} AD={Wmin*InvP*Ldiff} PS={2*(Ldiff+Wmin*InvP)} PD={2*(Ldiff+Wmin*InvP)}
+B_Not5_Mn Gn G 0 0 nmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff} PS={2*(Ldiff+Wmin)} PD={2*(Ldiff+Wmin)}
+
+
+
+
+VG0n G0n 0 1
+VG1n G1n 0 0
+VG2n G2n 0 0
+VG3n G3n 0 0
+
+VP0n P0n 0 1
+VP1n P1n 0 1
+VP2n P2n 0 1
+VP3n P3n 0 1
+
+VCnn Cnn 0 1
+
+
+*Definizione del tipo di analisi
+.CONTROL
+dc TEMP 85 86 10
+print I(Gn)
+
+.ENDC
+.END
+
