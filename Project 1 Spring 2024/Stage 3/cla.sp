@@ -65,7 +65,7 @@ x25 x21on x23on cnx Vdd nor2
 
 .control
 dc TEMP 85 86 10
-print V(cnx) V(cny) V(cnz) V(gn) V(pn)
+print V(cnx) V(cny) V(cnz) V(gn) V(pn) I(Va) I(V1) I(V2) I(V3) I(V4) I(V5) I(V6) I(V7) I(V8) I(V9)
 
 .endc
 
