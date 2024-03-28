@@ -1,9 +1,9 @@
 .subckt nand2 in1 in2 out Vdd 
 .param NandP=4
 .param NandN=2
-.PARAM Lmin=22n
-.PARAM Wmin=22n
-.PARAM Ldiff=44n
+.PARAM Lmin=32n
+.PARAM Wmin=32n
+.PARAM Ldiff=64n
 
 M1 out in1 x 0 nmos W={Wmin*NandN} L={Lmin}
 M2 x in2 0 0 nmos W={Wmin*NandN} L={Lmin}

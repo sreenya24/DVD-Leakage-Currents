@@ -4,7 +4,7 @@
 
 Va Vdd 0 'SUPPLY'
 
-Vin1 in1 0 0
+Vin1 in1 0 1
 Vin2 in2 0 0
 
 x1 in1 in2 out2 Vdd nor2
