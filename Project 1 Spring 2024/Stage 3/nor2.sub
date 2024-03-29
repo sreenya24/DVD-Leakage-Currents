@@ -6,7 +6,7 @@
 
 M1 out in1 0 0 nmos W={Wmin} L={Lmin}
 M2 out in2 0 0 nmos W={Wmin} L={Lmin}
-M3 out in1 x Vdd pmos W={Wmin*NorP} L={Lmin}  
-M4 x in2 Vdd Vdd pmos W={Wmin*NorP} L={Lmin} 
+M3 out in1 x 1 pmos W={Wmin*NorP} L={Lmin}  
+M4 x in2 Vdd 1 pmos W={Wmin*NorP} L={Lmin} 
 .ends 
 

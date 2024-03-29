@@ -4,6 +4,6 @@
 .PARAM Wmin=32n
 .PARAM Ldiff=64n
 
-M1 out in Vdd Vdd pmos W={Wmin*InvP} L={Lmin} 
+M1 out in Vdd 1 pmos W={Wmin*InvP} L={Lmin} 
 M2 out in 0 0 nmos W={Wmin} L={Lmin} 
 .ends 

@@ -7,6 +7,6 @@
 
 M1 out in1 x 0 nmos W={Wmin*NandN} L={Lmin}
 M2 x in2 0 0 nmos W={Wmin*NandN} L={Lmin}
-M3 out in1 Vdd Vdd pmos W={Wmin*NandP} L={Lmin}  
-M4 out in2 Vdd Vdd pmos W={Wmin*NandP} L={Lmin} 
+M3 out in1 Vdd 1 pmos W={Wmin*NandP} L={Lmin}  
+M4 out in2 Vdd 1 pmos W={Wmin*NandP} L={Lmin} 
 .ends 
