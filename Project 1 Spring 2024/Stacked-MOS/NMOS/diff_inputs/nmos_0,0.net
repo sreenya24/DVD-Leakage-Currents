@@ -6,9 +6,9 @@
 .OPTIONS GMIN=1e-020 ABSTOL=1e-18
 
 *Definizione dei parametri
-.PARAM Lmin=22n
-.PARAM Wmin=22n
-.PARAM Ldiff=44n
+.PARAM Lmin=32n
+.PARAM Wmin=32n
+.PARAM Ldiff=64n
 
 .TEMP 85
 
