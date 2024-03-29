@@ -6,15 +6,15 @@
 .PARAM Wmin=32n
 .PARAM Ldiff=64n
 
-.PARAM N=3
+.PARAM N=2
 
 
 .TEMP 85
 
 M1 drain gate source body pmos W={N*Wmin} L={Lmin} AS={N*Wmin*Ldiff} AD={N*Wmin*Ldiff} PS={2*(Ldiff+N*Wmin)} PD={2*(Ldiff+N*Wmin)}
-Vd 	drain	alim		0
-Vg 	gate	0		1
-Vs 	source	0		1
+Vd 	drain	0		1
+Vg 	gate	0		0
+Vs 	source	alim		0
 Vb 	body	0		1
 Vdd 	alim	0		0
 

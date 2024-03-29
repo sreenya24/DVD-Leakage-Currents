@@ -13,7 +13,7 @@ M1 drain gate source body pmos W={Wmin} L={Lmin} AS={Wmin*Ldiff} AD={Wmin*Ldiff}
 Vd 	drain	0		0
 Vg 	gate	0		1
 Vs 	source	alim		0
-Vb 	body	1		1
+Vb 	body	0		1
 Vdd 	alim	0		0
 
 .control
